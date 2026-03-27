@@ -20,7 +20,7 @@ export default function LikeButton({ postSlug }) {
     const fetchLikes = async () => {
       // Firebaseが初期化されていない場合はダミーデータを返すためのガード
       if (!db) {
-        setLikes(42); // プレビュー用のダミー件数
+        setLikes(0); // 変更：プレビュー時の初期値を0に
         setLoading(false);
         return;
       }

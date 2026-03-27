@@ -6,7 +6,7 @@ export default function Header() {
     <header>
       <div className="container">
         <Link to="/" className="logo">
-          My Blog.
+          Uryu.log
         </Link>
         <div className="nav-links">
           <ThemeToggle />
