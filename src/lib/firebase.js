@@ -6,12 +6,13 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyDCoBqGFLaPu1oagVZUyRK4d01HIlBPEtE",
+  authDomain: "for-my-blog-5d592.firebaseapp.com",
+  projectId: "for-my-blog-5d592",
+  storageBucket: "for-my-blog-5d592.firebasestorage.app",
+  messagingSenderId: "1050507099015",
+  appId: "1:1050507099015:web:2f479896ae553338c0b122",
+  measurementId: "G-3HCXJXFRDM"
 };
 
 // initializeApp の呼び出しを try-catch で囲むことで、仮の設定値のまま起動しても
