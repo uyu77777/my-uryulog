@@ -12,7 +12,8 @@ export default function Post() {
 
   useEffect(() => {
     // public/posts/{slug}.md を動的にFetchして読み込む
-    fetch(`/posts/${slug}.md`)
+    // Viteの環境変数を用いて相対パスになるよう調整
+    fetch(`${import.meta.env.BASE_URL}posts/${slug}.md`)
       .then(res => {
         if (!res.ok) {
           throw new Error('Post not found');

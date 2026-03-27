@@ -10,7 +10,8 @@ export default function Home() {
     // 記事一覧を取得（publicフォルダのmanifest.jsonから取得）
     // 本来の静的サイトジェネレータではビルド時に行いますが、
     // 今回は完全静的ファイル構成のまま動的なFetchで実現します。
-    fetch('/posts/manifest.json')
+    // Viteの環境変数を用いて相対パスになるよう調整
+    fetch(`${import.meta.env.BASE_URL}posts/manifest.json`)
       .then(res => {
         if (!res.ok) throw new Error("Manifest not found");
         return res.json();
