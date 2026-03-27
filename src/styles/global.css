@@ -160,6 +160,7 @@ footer {
 /* Post Detail */
 .post-header {
   margin-bottom: 40px;
+  padding-top: 32px; /* 余白を追加してヘッダーから少し離す */
 }
 
 .post-header h1 {
@@ -266,6 +267,30 @@ footer {
 .like-button:disabled {
   cursor: default;
   opacity: 0.8;
+}
+
+/* Back Button */
+.back-button {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 99px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 40px;
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  background: var(--nav-bg);
+  color: var(--text-color);
+  border-color: var(--text-color);
+  transform: translateX(-4px); /* 少し左へ動くアニメーション */
 }
 
 /* Utility Animations */

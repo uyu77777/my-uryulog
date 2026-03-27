@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
+import { ArrowLeft } from 'lucide-react';
 import Layout from '../components/Layout';
 import LikeButton from '../components/LikeButton';
 
@@ -43,18 +44,11 @@ export default function Post() {
         <article>
           <button 
             onClick={() => navigate(-1)}
-            style={{ 
-              background: 'none', 
-              border: 'none', 
-              color: 'var(--text-secondary)',
-              cursor: 'pointer',
-              marginBottom: '40px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '4px'
-            }}
+            className="back-button"
+            aria-label="Go back"
           >
-            ← Back
+            <ArrowLeft size={16} />
+            <span>Back</span>
           </button>
           
           <div className="markdown-body">

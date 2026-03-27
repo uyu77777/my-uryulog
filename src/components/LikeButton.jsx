@@ -46,14 +46,20 @@ export default function LikeButton({ postSlug }) {
   }, [postSlug, storageKey]);
 
   const handleLike = async () => {
-    if (hasLiked || loading) return;
+    if (loading) return;
 
-    // 即座にUIをアップデート（Optimistic UI更新）
-    setHasLiked(true);
-    setLikes((prev) => prev + 1);
-    localStorage.setItem(storageKey, 'true');
+    const isLiking = !hasLiked; // これから「いいね」するか、「取り消し」するか
 
-    // Firebase 連携なしの場合はここで終了
+    // UIを即座に更新 (Optimistic Update)
+    setHasLiked(isLiking);
+    setLikes((prev) => (isLiking ? prev + 1 : prev - 1));
+    
+    if (isLiking) {
+      localStorage.setItem(storageKey, 'true');
+    } else {
+      localStorage.removeItem(storageKey);
+    }
+
     if (!db) return;
 
     try {
@@ -62,17 +68,25 @@ export default function LikeButton({ postSlug }) {
 
       if (docSnap.exists()) {
         await updateDoc(docRef, {
-          count: increment(1)
+          // 増やすときは1、減らすときは-1
+          count: increment(isLiking ? 1 : -1)
         });
-      } else {
+      } else if (isLiking) {
+        // 取り消しの時点では存在しているはずだが、念のための作成処理
         await setDoc(docRef, {
           count: 1
         });
       }
     } catch (error) {
       console.error("Failed to update like:", error);
-      // 通信エラー時はロールバックするなどの対応も可能
-      // 今回はシンプルにログだけ吐く仕様
+      // エラー時はロールバック
+      setHasLiked(!isLiking);
+      setLikes((prev) => (isLiking ? prev - 1 : prev + 1));
+      if (!isLiking) {
+        localStorage.setItem(storageKey, 'true');
+      } else {
+        localStorage.removeItem(storageKey);
+      }
     }
   };
 
@@ -81,8 +95,8 @@ export default function LikeButton({ postSlug }) {
       <button 
         className={`like-button ${hasLiked ? 'liked' : ''}`}
         onClick={handleLike}
-        disabled={hasLiked || loading}
-        aria-label="Like this post"
+        disabled={loading} // hasLikedによるDisabledを解除
+        aria-label={hasLiked ? "Unlike this post" : "Like this post"}
       >
         <Heart 
           size={20} 

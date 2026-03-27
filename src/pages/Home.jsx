@@ -31,7 +31,7 @@ export default function Home() {
   return (
     <Layout>
       <div className="post-header">
-        <h1>Writing.</h1>
+        <h1>Uryu.log</h1>
         <p style={{ color: 'var(--text-secondary)', fontSize: '1.2rem' }}>
           Thoughts, learnings, and experiments.
         </p>
