@@ -61,7 +61,7 @@ export default function Post() {
               components={{
                 h1: ({node, ...props}) => (
                   <div style={{ marginBottom: '24px' }}>
-                    <h1 {...props} style={{ marginBottom: '8px' }} />
+                    <h1 {...props} style={{ marginTop: 0, marginBottom: '8px' }} />
                     {postMeta && postMeta.date && (
                       <time 
                         style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', fontWeight: '500' }}
