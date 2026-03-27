@@ -1,9 +1,9 @@
 [
   {
     "slug": "hello-world",
-    "title": "Welcome to my new blog",
-    "date": "2024-03-26",
-    "excerpt": "This is a completely static blog built with React, Vite, and Markdown. It features a minimal Apple-like design and a like button.",
+    "title": "Hello World！",
+    "date": "2026-03-28",
+    "excerpt": "開設！テストです",
     "thumbnail": ""
   },
   {
