@@ -282,7 +282,8 @@ footer {
   font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
-  margin-bottom: 40px;
+  margin-top: 16px;
+  margin-bottom: 24px;
   transition: all 0.2s ease;
 }
 

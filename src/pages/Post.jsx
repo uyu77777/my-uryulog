@@ -9,24 +9,29 @@ export default function Post() {
   const { slug } = useParams();
   const navigate = useNavigate();
   const [content, setContent] = useState('');
+  const [postMeta, setPostMeta] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // public/posts/{slug}.md を動的にFetchして読み込む
-    // Viteの環境変数を用いて相対パスになるよう調整
-    fetch(`${import.meta.env.BASE_URL}posts/${slug}.md`)
+    // 記事データとメタデータ（日付など）を並行して取得
+    const fetchContent = fetch(`${import.meta.env.BASE_URL}posts/${slug}.md`)
       .then(res => {
-        if (!res.ok) {
-          throw new Error('Post not found');
-        }
+        if (!res.ok) throw new Error('Post not found');
         return res.text();
-      })
-      .then(text => {
+      });
+
+    const fetchMeta = fetch(`${import.meta.env.BASE_URL}posts/manifest.json`)
+      .then(res => res.json())
+      .then(data => data.find(p => p.slug === slug));
+
+    Promise.all([fetchContent, fetchMeta])
+      .then(([text, meta]) => {
         // もしHTMLが返ってきている場合（Not Foundページの代替など）、エラーにする
         if (text.trim().startsWith('<!DOCTYPE html>')) {
            throw new Error('Not a markdown file');
         }
         setContent(text);
+        setPostMeta(meta);
         setLoading(false);
       })
       .catch(error => {
@@ -52,7 +57,29 @@ export default function Post() {
           </button>
           
           <div className="markdown-body">
-            <ReactMarkdown>{content}</ReactMarkdown>
+            <ReactMarkdown
+              components={{
+                h1: ({node, ...props}) => (
+                  <div style={{ marginBottom: '24px' }}>
+                    <h1 {...props} style={{ marginBottom: '8px' }} />
+                    {postMeta && postMeta.date && (
+                      <time 
+                        style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', fontWeight: '500' }}
+                        dateTime={postMeta.date}
+                      >
+                        {new Date(postMeta.date).toLocaleDateString('en-US', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </time>
+                    )}
+                  </div>
+                )
+              }}
+            >
+              {content}
+            </ReactMarkdown>
           </div>
           
           {/* PostNotFoundエラー用メッセージじゃない時だけLikedボタンを表示 */}
