@@ -1,3 +1,3 @@
-# Hello World！
+# Hello world!
 
-開設！テストです
+開設。テストだよ

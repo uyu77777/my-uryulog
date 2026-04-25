@@ -1,16 +1,9 @@
 [
   {
     "slug": "hello-world",
-    "title": "Hello World！",
+    "title": "Hello world!",
     "date": "2026-03-28",
-    "excerpt": "開設！テストです",
-    "thumbnail": ""
-  },
-  {
-    "slug": "about-me",
-    "title": "About the author",
-    "date": "2024-03-25",
-    "excerpt": "A short introduction about who I am and what I write about.",
+    "excerpt": "開設。テストだよ",
     "thumbnail": ""
   }
 ]
